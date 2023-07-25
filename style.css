@@ -1,16 +1,46 @@
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: aquamarine;
+}
+.top {
+  display: flex;
+  flex-grow: 2;
+  justify-content: center;
+}
+.title {
+  padding: 50px;
+  font-size: 60px;
+}
+.middle {
+  display: flex;
+  flex-direction: row;
+}
+.left,
+.right {
+  flex-grow: 1;
+}
+.left {
+  order: 1;
+}
+.right {
+  order: 3;
+}
 .container {
   display: flex;
   flex: auto;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-items: center;
-  align-items: center;
-  width: 25%;
+  background-color: inherit;
+  order: 2;
 }
 .square {
-  width: 5.8%;
-  padding: 2.9%;
-  border: 1px solid black;
+  width: 6%;
+  padding: 3%;
   box-sizing: border-box;
   position: relative;
+  background-color: aliceblue;
+}
+.square:hover {
+  background-color: black;
 }

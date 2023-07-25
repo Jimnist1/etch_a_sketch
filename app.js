@@ -1,4 +1,4 @@
-const container = document.querySelector("body");
+const container = document.querySelector(".middle");
 const divContainer = document.createElement("div");
 divContainer.classList.add("container");
 container.appendChild(divContainer);
