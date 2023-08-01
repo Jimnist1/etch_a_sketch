@@ -18,7 +18,7 @@ body {
 }
 .left,
 .right {
-  flex-grow: 1;
+  flex: 1;
 }
 .left {
   order: 1;
@@ -27,19 +27,19 @@ body {
   order: 3;
 }
 .container {
-  display: flex;
-  flex: auto;
-  flex-direction: row;
-  flex-wrap: wrap;
-  background-color: inherit;
+  background-color: aliceblue;
+  height: 600px;
+  width: 600px;
   order: 2;
+  border: 5px solid black;
 }
 .square {
-  width: 6%;
-  padding: 3%;
-  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   position: relative;
   background-color: aliceblue;
+  display: inline-block;
+  outline: 1px solid #000;
 }
 .square:hover {
   background-color: black;
