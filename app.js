@@ -20,31 +20,38 @@ function createGrid(gridSize) {
     }
   }
 }
-const darken = (hexColor, magnitude) => {
-  hexColor = hexColor.replace(`#`, ``);
-  if (hexColor.length === 6) {
-    const decimalColor = parseInt(hexColor, 16);
-    let r = (decimalColor >> 16) + magnitude;
-    r > 255 && (r = 255);
-    r < 0 && (r = 0);
-    let g = (decimalColor & 0x0000ff) + magnitude;
-    g > 255 && (g = 255);
-    g < 0 && (g = 0);
-    let b = ((decimalColor >> 8) & 0x00ff) + magnitude;
-    b > 255 && (b = 255);
-    b < 0 && (b = 0);
-    return `#${(g | (b << 8) | (r << 16)).toString(16)}`;
-  } else {
-    return hexColor;
-  }
-};
+let colourScale = false;
+function changeScale() {
+  if (colourScale == false) colourScale = true;
+  else colourScale = false;
+}
+function darken(colour, magnitude) {
+  let rgbList = colour.split(/[,()]/);
+  let r = rgbList[rgbList.length - 4];
+  let g = rgbList[rgbList.length - 3];
+  let b = rgbList[rgbList.length - 2];
+  let darkR = r - magnitude;
+  let darkG = g - magnitude;
+  let darkB = b - magnitude;
+  return `rgb(${darkR},${darkG},${darkB})`;
+}
+function rgbNumRandom() {
+  return Math.floor(Math.random() * 256);
+}
+function colourRandomiser() {
+  let randR = rgbNumRandom();
+  let randG = rgbNumRandom();
+  let randB = rgbNumRandom();
+  return `rgb(${randR},${randG},${randB})`;
+}
 function changeColour(e) {
   let currentColour = e.target.style.backgroundColor;
-  if (currentColour == "") {
-    e.target.style.backgroundColor = "#808080";
-  }
+  if (currentColour == "" && colourScale == false)
+    e.target.style.backgroundColor = "rgb(50,50,50)";
+  else if (currentColour == "" && colourScale == true)
+    e.target.style.backgroundColor = colourRandomiser();
+  else e.target.style.backgroundColor = darken(currentColour, 5);
 }
-
 function resetGrid() {
   while (divContainer.firstChild) {
     divContainer.removeChild(divContainer.lastChild);
@@ -58,7 +65,8 @@ buttons.forEach((button) => {
     if (button.id == "resetButton") {
       resetGrid();
       createGrid(currentGrid);
-    } else {
+    } else if (button.id == "colourButton") changeScale();
+    else {
       let inputSize = prompt("Type the desired grid size 16 - 100");
       currentGrid = inputSize;
       createGrid(inputSize);
